@@ -258,7 +258,7 @@ class FastPitch(nn.Module):
         enc_out, enc_mask = self.encoder(inputs, conditioning=spk_emb)
 
         # Alignment
-        text_emb = self.encoder.word_emb(inputs)
+        text_emb = self.encoder.word_emb(inputs) + self.encoder.prom_emb(proms)
 
         # make sure to do the alignments before folding
         attn_mask = mask_from_lens(input_lens)[..., None] == 0
